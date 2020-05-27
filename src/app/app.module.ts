@@ -1,32 +1,38 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AppRoutingModule } from './app-routing.module';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { HttpClientModule } from '@angular/common/http';
-
-import { AppComponent } from "./app.component";
-import { AutoSuggestComponent } from "./auto-suggest/auto-suggest.component";
-import { SuggestionItemComponent } from "./suggestion-item/suggestion-item.component";
-import { SwitchMapComponent } from "./switch-map/switch-map.component";
-import { DebounceTimeComponent } from "./debounce-time/debounce-time.component";
-import { CurrentComponent } from "./current/current.component";
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AutoSuggestComponent } from './auto-suggest/auto-suggest.component';
+import { CurrentComponent } from './current/current.component';
+import { DebounceTimeComponent } from './debounce-time/debounce-time.component';
+import { SuggestionItemComponent } from './suggestion-item/suggestion-item.component';
+import { SwitchMapComponent } from './switch-map/switch-map.component';
+import { PortalModule } from '@angular/cdk/portal';
+import { DebounceWithSwitchmapComponent } from './debounce-with-switchmap/debounce-with-switchmap.component';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
   declarations: [
     AppComponent,
     AutoSuggestComponent,
     SuggestionItemComponent,
     SwitchMapComponent,
     DebounceTimeComponent,
-    CurrentComponent
+    CurrentComponent,
+    DebounceWithSwitchmapComponent
   ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    OverlayModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    PortalModule
+  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -11,7 +11,8 @@ import { debounceTime } from 'rxjs/operators';
 export class DebounceTimeComponent implements OnInit {
   baseUrl = "https://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search?q=";
   subject = new Subject();
-  debounceTime: string = "50";
+  debounceTime: string = "500";
+  isLoading: boolean = false;
   users: any[] = [];
   constructor(
     private http: HttpClient
@@ -20,8 +21,9 @@ export class DebounceTimeComponent implements OnInit {
 
   ngOnInit() {
     this.subject.pipe(debounceTime(Number(this.debounceTime))).subscribe((text) => {
-      console.log(text);
+      this.isLoading = true;
       this.onUserSearch(text).subscribe((users: any) => {
+        this.isLoading = false;
         this.users = users;
       })
     })

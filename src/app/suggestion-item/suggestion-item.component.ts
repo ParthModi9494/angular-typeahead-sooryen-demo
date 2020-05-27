@@ -8,8 +8,8 @@ import { Component, ElementRef, EventEmitter, HostBinding, Input, Output } from 
 })
 export class SuggestionItemComponent implements Highlightable {
 
-  @Input() item;
-  @Output() styleSet = new EventEmitter
+  @Input() suggestionItem: object;
+  @Output() focusInput = new EventEmitter
   private _isActive = false;
 
   @HostBinding("tabindex")
@@ -22,16 +22,11 @@ export class SuggestionItemComponent implements Highlightable {
 
   setActiveStyles() {
     this.element.nativeElement.focus();
-    this.styleSet.emit();
+    this.focusInput.emit();
     this._isActive = true;
   };
 
   setInactiveStyles() {
     this._isActive = false;
   }
-
-  getLabel() {
-    return this.item.name;
-  }
-
 }

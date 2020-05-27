@@ -1,4 +1,27 @@
 <div>
-    <h4 class="title is-4 has-text-centered">Auto suggest with Switch Map</h4>
-    <app-auto-suggest [usersIn]="users" (search)="subject.next($event)"></app-auto-suggest>
+    <h4 class="title is-4 has-text-centered">Using Switch Map</h4>
+
+    <app-auto-suggest [suggestions]="users" [isLoading]="isLoading" [suggestionItemTemplate]="itemTemplate"
+        (search)="subject.next($event)" (suggestionSelected)="onSuggestionSelected($event)"></app-auto-suggest>
+
+    <ng-template #itemTemplate let-user>
+        <article class="media">
+            <div class="media-left">
+                <figure class="image is-64x64">
+                    <img [src]="user?.profile_image_url_https" alt="Image">
+                </figure>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>{{user?.name}}</strong>
+                        <small *ngIf="user.screen_name"> @{{user.screen_name}}</small>
+                        <br>
+                        <small *ngIf="user?.location">{{user?.location}}</small>
+
+                    </p>
+                </div>
+            </div>
+        </article>
+    </ng-template>
 </div>

@@ -12,18 +12,27 @@ export class SwitchMapComponent implements OnInit {
   baseUrl = "https://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search?q=";
   subject = new Subject();
   users: any[] = [];
+  isLoading: boolean = false;
   constructor(
     private http: HttpClient
   ) {
   }
 
   ngOnInit() {
-    this.subject.pipe(switchMap((text) => { return this.onUserSearch(text) })).subscribe((users: any) => {
+    this.subject.pipe(switchMap((text) => {
+      this.isLoading = true;
+      return this.onUserSearch(text)
+    })).subscribe((users: any) => {
+      this.isLoading = false;
       this.users = users;
     });
   }
 
   onUserSearch(searchTerm) {
     return this.http.get(`${this.baseUrl}${searchTerm}`);
+  }
+
+  onSuggestionSelected(selectedItem) {
+    console.log(selectedItem);
   }
 }

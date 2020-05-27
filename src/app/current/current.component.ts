@@ -11,6 +11,7 @@ export class CurrentComponent implements OnInit {
   baseUrl = "https://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search?q=";
   subject = new Subject();
   users: any[] = [];
+  isLoading: boolean;
   constructor(
     private http: HttpClient
   ) {
@@ -18,7 +19,9 @@ export class CurrentComponent implements OnInit {
 
   ngOnInit() {
     this.subject.subscribe((text) => {
+      this.isLoading = true;
       this.onUserSearch(text).subscribe((users: any) => {
+        this.isLoading = false;
         this.users = users;
       })
     })
