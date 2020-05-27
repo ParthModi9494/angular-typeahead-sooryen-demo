@@ -11,7 +11,7 @@ import { debounceTime } from 'rxjs/operators';
 export class DebounceTimeComponent implements OnInit {
   baseUrl = "https://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search?q=";
   subject = new Subject();
-  debounceTime: string = "100";
+  debounceTime: string = "50";
   users: any[] = [];
   constructor(
     private http: HttpClient
