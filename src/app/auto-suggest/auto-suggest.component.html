@@ -1,0 +1,31 @@
+<section class="section">
+    <div [ngClass]="{'is-loading':isLoading, 'control':true, 'is-large':true}">
+        <input #input [formControl]="searchInput" class="input is-large" type="text"
+            placeholder="Search for a Twitter user...">
+    </div>
+    <div class="list" [style.width.px]="input.clientWidth" *ngIf="users.length">
+        <suggestion-item (styleSet)="styleSet()" [item]="user" *ngFor="let user of users" class="list-item">
+            <article class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        <img [src]="user?.profile_image_url_https" alt="Image">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>{{user?.name}}</strong>
+                            <small *ngIf="user.screen_name"> @{{user.screen_name}}</small>
+                            <br>
+                            <small *ngIf="user?.location">{{user?.location}}</small>
+                            <br>
+                            <small *ngIf="user?.description">
+                                {{user?.description}} </small>
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </suggestion-item>
+    </div>
+
+</section>
