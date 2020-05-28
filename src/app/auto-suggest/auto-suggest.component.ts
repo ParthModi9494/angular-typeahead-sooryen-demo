@@ -4,8 +4,7 @@ import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { SuggestionItemComponent } from '../suggestion-item/suggestion-item.component';
-
+import { SuggestionItemComponent } from "./suggestion-item/suggestion-item.component";
 @Component({
   selector: 'app-auto-suggest',
   templateUrl: './auto-suggest.component.html',
