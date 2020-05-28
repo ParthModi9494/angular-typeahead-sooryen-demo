@@ -1,0 +1,37 @@
+<div>
+    <h4 class="title is-4 has-text-centered">Using Debounce Time  <span class="select is-small">
+            <select [(ngModel)]="debounceTime" (change)="onDebounceChange()">
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="250">200</option>
+                <option value="300">300</option>
+                <option value="400">400</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+            </select>
+        </span> ms with Switch Map</h4>
+
+
+    <app-auto-suggest [suggestions]="users" [isLoading]="isLoading" [suggestionItemTemplate]="itemTemplate"
+        (search)="subject.next($event)"></app-auto-suggest>
+    <ng-template #itemTemplate let-user>
+        <article class="media">
+            <div class="media-left">
+                <figure class="image is-64x64">
+                    <img [src]="user?.profile_image_url_https" alt="Image">
+                </figure>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>{{user?.name}}</strong>
+                        <small *ngIf="user.screen_name"> @{{user.screen_name}}</small>
+                        <br>
+                        <small *ngIf="user?.location">{{user?.location}}</small>
+
+                    </p>
+                </div>
+            </div>
+        </article>
+    </ng-template>
+</div>
