@@ -58,7 +58,6 @@ export class AutoSuggestComponent implements OnInit, AfterViewInit {
   }
 
   onKeydown(event) {
-
     switch (event.keyCode) {
       case UP_ARROW:
         this.keyManager.onKeydown(event);
@@ -78,13 +77,6 @@ export class AutoSuggestComponent implements OnInit, AfterViewInit {
         break;
       default:
         break;
-    }
-
-    if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
-    } else if (event.keyCode === ENTER) {
-
-    } else if (event.keyCode === ESCAPE) {
-      this.closeSuggestions();
     }
   }
   onSuggestionSelected(selectedItem) {
