@@ -1,35 +1,21 @@
-import { ActiveDescendantKeyManager } from "@angular/cdk/a11y";
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, UP_ARROW, ESCAPE } from "@angular/cdk/keycodes";
-import { Overlay, OverlayConfig, OverlayRef } from "@angular/cdk/overlay";
-import { TemplatePortalDirective } from "@angular/cdk/portal";
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  QueryList,
-  TemplateRef,
-  ViewChild,
-  ViewChildren
-} from "@angular/core";
-import { FormControl } from "@angular/forms";
-import { SuggestionItemComponent } from "../suggestion-item/suggestion-item.component";
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { TemplatePortalDirective } from '@angular/cdk/portal';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { SuggestionItemComponent } from '../suggestion-item/suggestion-item.component';
 
 @Component({
-  selector: "app-auto-suggest",
-  templateUrl: "./auto-suggest.component.html",
-  styleUrls: ["./auto-suggest.component.scss"]
+  selector: 'app-auto-suggest',
+  templateUrl: './auto-suggest.component.html',
+  styleUrls: ['./auto-suggest.component.scss']
 })
 export class AutoSuggestComponent implements OnInit, AfterViewInit {
   suggestionItems: object[] = [];
   overlayRef: OverlayRef;
   searchInput = new FormControl("");
   keyManager: ActiveDescendantKeyManager<SuggestionItemComponent>;
-  showSuggestionBox = false;
   @Input() enterToSelect: boolean = true;
   @Input() escapeToCancel: boolean = true;
   @Input() suggestionItemTemplate: TemplateRef<any>;
@@ -41,16 +27,17 @@ export class AutoSuggestComponent implements OnInit, AfterViewInit {
     } else {
       this.closeSuggestions();
     }
-  }
+  };
   @Output() search = new EventEmitter();
   @Output() suggestionSelected = new EventEmitter();
   @ViewChild("input") input: ElementRef;
-  @ViewChildren(SuggestionItemComponent) items: QueryList<
-    SuggestionItemComponent
-  >;
+  @ViewChildren(SuggestionItemComponent) items: QueryList<SuggestionItemComponent>;
   @ViewChild("overlayTemplate") overlayTemplate: TemplatePortalDirective;
 
-  constructor(private overlay: Overlay, private cdRef: ChangeDetectorRef) {}
+  constructor(
+    private overlay: Overlay,
+    private cdRef: ChangeDetectorRef
+  ) { }
 
   ngAfterViewInit() {
     this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap();
@@ -68,10 +55,11 @@ export class AutoSuggestComponent implements OnInit, AfterViewInit {
       } else {
         this.closeSuggestions();
       }
-    });
+    })
   }
 
   onKeydown(event) {
+
     switch (event.keyCode) {
       case UP_ARROW:
         this.keyManager.onKeydown(event);
@@ -95,6 +83,7 @@ export class AutoSuggestComponent implements OnInit, AfterViewInit {
 
     if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
     } else if (event.keyCode === ENTER) {
+
     } else if (event.keyCode === ESCAPE) {
       this.closeSuggestions();
     }
@@ -105,45 +94,42 @@ export class AutoSuggestComponent implements OnInit, AfterViewInit {
   }
 
   showSuggestions() {
-    this.showSuggestionBox = true;
-    // this.closeSuggestions();
-    // const positionStrategy = this.overlay
-    //   .position()
-    //   .flexibleConnectedTo(this.input)
-    //   .withPositions([
-    //     {
-    //       originX: "start",
-    //       originY: "bottom",
-    //       overlayX: "start",
-    //       overlayY: "top"
-    //     }
-    //   ])
-    //   .withFlexibleDimensions(false)
-    //   .withPush(false);
+    this.closeSuggestions();
+    const positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo(this.input)
+      .withPositions([
+        {
+          originX: "start",
+          originY: "bottom",
+          overlayX: "start",
+          overlayY: "top"
+        }
+      ])
+      .withFlexibleDimensions(false)
+      .withPush(false);
 
-    // const overlayConfig = new OverlayConfig({
-    //   positionStrategy
-    // });
+    const overlayConfig = new OverlayConfig({
+      positionStrategy
+    });
 
-    // overlayConfig.hasBackdrop = true;
-    // overlayConfig.backdropClass = "popover-backdrops";
+    overlayConfig.hasBackdrop = true;
+    overlayConfig.backdropClass = "popover-backdrops";
 
-    // this.overlayRef = this.overlay.create(overlayConfig);
+    this.overlayRef = this.overlay.create(overlayConfig);
 
-    // this.overlayRef.backdropClick().subscribe(() => {
-    //   this.overlayRef.dispose();
-    //   this.overlayRef = null;
-    // });
+    this.overlayRef.backdropClick().subscribe(() => {
+      this.overlayRef.dispose();
+      this.overlayRef = null;
+    });
 
-    // this.overlayRef.attach(this.overlayTemplate);
+    this.overlayRef.attach(this.overlayTemplate);
   }
 
   closeSuggestions() {
-    this.showSuggestionBox = false;
-
-    // if (this.overlayRef) {
-    //   this.overlayRef.dispose();
-    //   this.overlayRef = null;
-    // }
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = null;
+    }
   }
 }
