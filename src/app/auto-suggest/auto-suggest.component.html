@@ -3,13 +3,13 @@
         <input #input [formControl]="searchInput" class="input is-large" type="text" (click)="showSuggestions()"
             placeholder="Search for a Twitter user..." (keydown)="onKeydown($event)">
     </div>
-    <ng-template cdk-portal #overlayTemplate="cdkPortal">
-        <div class="list scrollbar" [style.width.px]="input.clientWidth">
+    <!-- <ng-template cdk-portal #overlayTemplate="cdkPortal"> -->
+        <div *ngIf="showSuggestionBox" class="list scrollbar" [style.width.px]="input.clientWidth">
             <suggestion-item *ngFor="let suggestionItem of suggestionItems" [suggestionItem]="suggestionItem"
                 (focusInput)="input.focus()" class="list-item" (click)="onSuggestionSelected(suggestionItem)">
                 <ng-container *ngTemplateOutlet="suggestionItemTemplate;context:{$implicit:suggestionItem}">
                 </ng-container>
             </suggestion-item>
         </div>
-    </ng-template>
+    <!-- </ng-template> -->
 </section>
